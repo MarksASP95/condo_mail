@@ -1,0 +1,7 @@
+.uploading-capture-text {
+  display: none;
+}
+
+.uploading-capture-text.shown {
+  display: block;
+}
