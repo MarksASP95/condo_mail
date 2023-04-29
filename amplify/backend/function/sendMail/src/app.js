@@ -46,7 +46,32 @@ const getTransport = () => {
 app.post('/send-mail', function(req, res) {
   const { months, amountUSD, rateBs, captureUrl } = req.body;
 
-  const { TARGET_EMAIL, SENDER_EMAIL } = process.env;
+  const { TARGET_EMAIL, SENDER_EMAIL, TOKEN } = process.env;
+
+  const authorizationHeader = req.get("Authorization");
+  if (!authorizationHeader) {
+    return res.status(400).send({
+      sent: false, 
+      body: req.body, 
+      message: "No authorization header" 
+    });
+  }
+
+  const [ authorizationScheme, authorizationToken ] = authorizationHeader.split(" ");
+  if (authorizationScheme !== "Basic") {
+    return res.status(403).send({
+      sent: false, 
+      body: req.body, 
+      message: "Unauthorized" 
+    });
+  }
+  if (authorizationToken !== TOKEN) {
+    return res.status(403).send({ 
+      sent: false, 
+      body: req.body, 
+      message: "Invalid token" 
+    });
+  }
 
   getTransport()
     .sendMail({

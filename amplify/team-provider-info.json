@@ -15,7 +15,7 @@
       "function": {
         "sendMail": {
           "deploymentBucketName": "amplify-condomail-dev-174407-deployment",
-          "s3Key": "amplify-builds/sendMail-6c6e63676f6e786b666e-build.zip"
+          "s3Key": "amplify-builds/sendMail-34332b3651316d527866-build.zip"
         }
       },
       "api": {

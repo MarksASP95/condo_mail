@@ -17,19 +17,19 @@
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda",
-      "lastBuildTimeStamp": "2023-04-17T00:23:58.199Z",
+      "lastBuildTimeStamp": "2023-04-29T15:56:48.575Z",
       "lastBuildType": "PROD",
-      "lastPackageTimeStamp": "2023-04-17T00:23:59.295Z",
-      "distZipFilename": "sendMail-6c6e63676f6e786b666e-build.zip",
+      "lastPackageTimeStamp": "2023-04-29T15:56:49.868Z",
+      "distZipFilename": "sendMail-34332b3651316d527866-build.zip",
       "s3Bucket": {
         "deploymentBucketName": "amplify-condomail-dev-174407-deployment",
-        "s3Key": "amplify-builds/sendMail-6c6e63676f6e786b666e-build.zip"
+        "s3Key": "amplify-builds/sendMail-34332b3651316d527866-build.zip"
       },
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-condomail-dev-174407-deployment/amplify-cfn-templates/function/sendMail-cloudformation-template.json",
         "logicalId": "functionsendMail"
       },
-      "lastPushTimeStamp": "2023-04-17T00:26:00.569Z",
+      "lastPushTimeStamp": "2023-04-29T15:58:14.649Z",
       "output": {
         "LambdaExecutionRoleArn": "arn:aws:iam::971415270861:role/condomailLambdaRolea5261e06-dev",
         "Region": "us-east-1",
@@ -37,7 +37,7 @@
         "Name": "sendMail-dev",
         "LambdaExecutionRole": "condomailLambdaRolea5261e06-dev"
       },
-      "lastPushDirHash": "GRpBdYTo6OMb9I1QdQk+nWMp4Ig="
+      "lastPushDirHash": "SO2NgV6ZWNLI9tSi1QChtd704uo="
     }
   },
   "api": {
@@ -58,7 +58,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-condomail-dev-174407-deployment/amplify-cfn-templates/api/cmapi-cloudformation-template.json",
         "logicalId": "apicmapi"
       },
-      "lastPushTimeStamp": "2023-04-17T00:25:59.737Z",
+      "lastPushTimeStamp": "2023-04-29T15:58:13.414Z",
       "output": {
         "ApiName": "cmapi",
         "RootUrl": "https://ows42w73v3.execute-api.us-east-1.amazonaws.com/dev",
