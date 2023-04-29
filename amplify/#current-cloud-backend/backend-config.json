@@ -1,0 +1,43 @@
+{
+  "api": {
+    "cmapi": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "sendMail"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
+  "function": {
+    "sendMail": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_sendMail_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "sendMail"
+        }
+      ]
+    },
+    "AMPLIFY_function_sendMail_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "sendMail"
+        }
+      ]
+    }
+  }
+}

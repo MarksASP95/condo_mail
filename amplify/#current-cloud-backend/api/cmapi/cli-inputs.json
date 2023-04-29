@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "paths": {
+    "/send-mail": {
+      "name": "/send-mail",
+      "lambdaFunction": "sendMail",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}

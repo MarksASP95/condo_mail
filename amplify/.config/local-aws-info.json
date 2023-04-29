@@ -1,0 +1,7 @@
+{
+  "dev": {
+    "configLevel": "project",
+    "useProfile": true,
+    "profileName": "marco_condo_mail"
+  }
+}

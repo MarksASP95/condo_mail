@@ -1,0 +1,26 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-condomail-dev-174407-authRole",
+      "UnauthRoleArn": "arn:aws:iam::971415270861:role/amplify-condomail-dev-174407-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::971415270861:role/amplify-condomail-dev-174407-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-condomail-dev-174407-deployment",
+      "UnauthRoleName": "amplify-condomail-dev-174407-unauthRole",
+      "StackName": "amplify-condomail-dev-174407",
+      "StackId": "arn:aws:cloudformation:us-east-1:971415270861:stack/amplify-condomail-dev-174407/d3e319a0-dc9f-11ed-8675-0e8b1de0c8bb",
+      "AmplifyAppId": "dcf5yjaf42jt8"
+    },
+    "categories": {
+      "function": {
+        "sendMail": {
+          "deploymentBucketName": "amplify-condomail-dev-174407-deployment",
+          "s3Key": "amplify-builds/sendMail-6c6e63676f6e786b666e-build.zip"
+        }
+      },
+      "api": {
+        "cmapi": {}
+      }
+    }
+  }
+}
