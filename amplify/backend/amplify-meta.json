@@ -12,24 +12,80 @@
       "AmplifyAppId": "dcf5yjaf42jt8"
     }
   },
+  "api": {
+    "cmapi": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "sendMail"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway",
+      "output": {
+        "ApiName": "cmapi",
+        "RootUrl": "https://ows42w73v3.execute-api.us-east-1.amazonaws.com/dev",
+        "ApiId": "ows42w73v3"
+      },
+      "lastPushTimeStamp": "2023-04-29T19:22:01.720Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-condomail-dev-174407-deployment/amplify-cfn-templates/api/cmapi-cloudformation-template.json",
+        "logicalId": "apicmapi"
+      }
+    }
+  },
+  "auth": {
+    "condomail6489056d": {
+      "customAuth": false,
+      "dependsOn": [],
+      "frontendAuthConfig": {
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito",
+      "output": {
+        "UserPoolId": "us-east-1_pgrqY43We",
+        "AppClientIDWeb": "3m7uae4v0eds6dqglojo9ie2gb",
+        "AppClientID": "jk36v3o244rcl20nljtn64hun",
+        "IdentityPoolId": "us-east-1:a9d35c09-dabd-4cef-a29d-f988b6a5b567",
+        "UserPoolArn": "arn:aws:cognito-idp:us-east-1:971415270861:userpool/us-east-1_pgrqY43We",
+        "IdentityPoolName": "condomail6489056d_identitypool_6489056d__dev",
+        "UserPoolName": "condomail6489056d_userpool_6489056d"
+      },
+      "lastPushTimeStamp": "2023-04-29T19:22:01.723Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-condomail-dev-174407-deployment/amplify-cfn-templates/auth/condomail6489056d-cloudformation-template.json",
+        "logicalId": "authcondomail6489056d"
+      },
+      "lastPushDirHash": "tSqf7EZgN/NcpODXisTcSYcxApo="
+    }
+  },
   "function": {
     "sendMail": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda",
-      "lastBuildTimeStamp": "2023-04-29T15:56:48.575Z",
-      "lastBuildType": "PROD",
-      "lastPackageTimeStamp": "2023-04-29T15:56:49.868Z",
-      "distZipFilename": "sendMail-34332b3651316d527866-build.zip",
-      "s3Bucket": {
-        "deploymentBucketName": "amplify-condomail-dev-174407-deployment",
-        "s3Key": "amplify-builds/sendMail-34332b3651316d527866-build.zip"
-      },
-      "providerMetadata": {
-        "s3TemplateURL": "https://s3.amazonaws.com/amplify-condomail-dev-174407-deployment/amplify-cfn-templates/function/sendMail-cloudformation-template.json",
-        "logicalId": "functionsendMail"
-      },
-      "lastPushTimeStamp": "2023-04-29T15:58:14.649Z",
       "output": {
         "LambdaExecutionRoleArn": "arn:aws:iam::971415270861:role/condomailLambdaRolea5261e06-dev",
         "Region": "us-east-1",
@@ -37,34 +93,32 @@
         "Name": "sendMail-dev",
         "LambdaExecutionRole": "condomailLambdaRolea5261e06-dev"
       },
-      "lastPushDirHash": "SO2NgV6ZWNLI9tSi1QChtd704uo="
+      "lastPushTimeStamp": "2023-04-29T19:22:01.725Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-condomail-dev-174407-deployment/amplify-cfn-templates/function/sendMail-cloudformation-template.json",
+        "logicalId": "functionsendMail"
+      },
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-condomail-dev-174407-deployment",
+        "s3Key": "amplify-builds/sendMail-34332b3651316d527866-build.zip"
+      }
     }
   },
-  "api": {
-    "cmapi": {
-      "service": "API Gateway",
+  "storage": {
+    "cmstorage": {
+      "dependsOn": [],
       "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "function",
-          "resourceName": "sendMail",
-          "attributes": [
-            "Name",
-            "Arn"
-          ]
-        }
-      ],
-      "providerMetadata": {
-        "s3TemplateURL": "https://s3.amazonaws.com/amplify-condomail-dev-174407-deployment/amplify-cfn-templates/api/cmapi-cloudformation-template.json",
-        "logicalId": "apicmapi"
-      },
-      "lastPushTimeStamp": "2023-04-29T15:58:13.414Z",
+      "service": "S3",
       "output": {
-        "ApiName": "cmapi",
-        "RootUrl": "https://ows42w73v3.execute-api.us-east-1.amazonaws.com/dev",
-        "ApiId": "ows42w73v3"
+        "BucketName": "captures174407-dev",
+        "Region": "us-east-1"
       },
-      "lastPushDirHash": "K8Q1XQM03cWC338GfLqWW6V1888="
+      "lastPushTimeStamp": "2023-04-29T19:22:02.485Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-condomail-dev-174407-deployment/amplify-cfn-templates/storage/cloudformation-template.json",
+        "logicalId": "storagecmstorage"
+      },
+      "lastPushDirHash": "vLnhXL3Ty1i/l/aG2Rllw2qz31k="
     }
   }
 }

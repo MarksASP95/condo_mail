@@ -20,6 +20,12 @@
       },
       "api": {
         "cmapi": {}
+      },
+      "auth": {
+        "condomail6489056d": {}
+      },
+      "storage": {
+        "cmstorage": {}
       }
     }
   }
