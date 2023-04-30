@@ -5,89 +5,150 @@ import { SendMailInput } from './models/mail';
 
 const uploadingTextEl: HTMLParagraphElement = document.querySelector(".uploading-capture-text")!;
 const inputCaptureEl = document.getElementById("input-capture")! as HTMLInputElement;
+const submitButtonEl = document.querySelector('button[type="submit"]')! as HTMLButtonElement;
+const inputCaptureUrlEl = document.getElementById("capture-url-input")! as HTMLInputElement;
 
 Amplify.configure(amplifyConfig);
-
-const sendMailInput: SendMailInput = {
-  amountUSD: 20,
-  captureUrl: "some-capture-url",
-  months: ["Abril", "Mayo"],
-  rateBs: 25,
-};
 
 const form = document.forms[0];
 inputCaptureEl.addEventListener("change", handleCaptureInputElementChange);
 form.addEventListener("submit", handleFormSubmit);
+form.addEventListener("input", handleFormInput);
 
-Storage.list("")
-  .then((value) => {
-    console.log("value", value)
-  })
-  .catch((err) => console.log("error", err))
 
-Storage.get("transfonter.org-20230109-183817.zip")
-  .then((value) => console.log("DONE", value))
-  .catch((err) => console.log("ERROR", err));
-
-function handleCaptureInputElementChange(e: Event) {
-  const file = inputCaptureEl.files![0];
-  console.log("uploading");
-  Storage.put(file.name, file, {
-    contentType: file.type,
-    resumable: true,
-    progressCallback: (progress) => {
-      console.log("PROGRESS CALLBACK", progress);
-      setShowUploadingText(true);
-      setUploadingTextPerc((progress.loaded * 100) / progress.total)
-    },
-    errorCallback: (err) => {
-      console.log("ERROR CALLBACK", err);
-    },
-    completeCallback: (event) => {
-      console.log("COMPLETE CALLBACK", event);
-    },
-  }).resume();
-}
-
-function handleFormSubmit(e: SubmitEvent) {
-  e.preventDefault();
-  const fd = new FormData(e.target! as HTMLFormElement);
+function getFormRawData(): Record<string, any> {
+  const fd = new FormData(form);
   const fdData: any = {};
   fd.forEach((value, key) => {
     fdData[key] = value;
   });
-  const amountStr = fd.get("amount");
-  const rateStr = fd.get("rate");
-  const monthtsStr = fd.get("months");
+  const amount = fd.get("amount");
+  const rate = fd.get("rate");
+  const months = fd.get("months");
   const captureUrl = fd.get("captureUrl");
 
-  if (!amountStr) return;
-  if (!rateStr) return;
-  if (!monthtsStr) return;
-  if (!captureUrl) return;
+  return { amount, rate, months, captureUrl };
+}
 
-  setShowUploadingText(true);
+function getFormErrors(): { key: string, error: string }[] {
+  const errors = [];
 
-  return;
+  const {
+    amount: amountStr,
+    rate: rateStr,
+    months: monthsStr,
+    captureUrl,
+  } = getFormRawData();
+
+  if (!amountStr) errors.push({ key: "amount", error: "empty" });
+  if (!rateStr) errors.push({ key: "rate", error: "empty" });
+  if (!monthsStr) errors.push({ key: "months", error: "empty" });
+  if (!captureUrl) errors.push({ key: "captureUrl", error: "empty" });
+
+  const amountUSD = parseFloat(amountStr);
+  if (isNaN(amountUSD)) errors.push({ key: "amount", error: "NaN" });
+
+  const rateBs = parseFloat(rateStr);
+  if (isNaN(rateBs)) errors.push({ key: "rate", error: "NaN" });
+
+  return errors;
+}
+
+function formIsValid(): boolean {
+  return !getFormErrors().length;
+}
+
+function getFormData(): SendMailInput | null {
+  if (!formIsValid()) return null;
+
+  const {
+    amount: amountStr,
+    rate: rateStr,
+    months: monthsStr,
+    captureUrl,
+  } = getFormRawData();
+
+  const amountUSD = parseFloat(amountStr);
+
+  const rateBs = parseFloat(rateStr);
+  
+  const months = (monthsStr as string).split(" ");
+
+  return { amountUSD, rateBs, months, captureUrl };
+}
+
+function handleFormInput() {
+  console.log("is valid", getFormErrors())
+  submitButtonEl.disabled = !formIsValid();
+}
+
+function setCaptureUrl(url: string) {
+  inputCaptureUrlEl.value = url;
+  handleFormInput();
+}
+
+function handleCaptureInputElementChange() {
+  const file = inputCaptureEl.files![0];
+  Storage.put(file.name, file, {
+    contentType: file.type,
+    resumable: true,
+    progressCallback: (progress) => {
+      setShowUploadingText(true, (progress.loaded * 100) / progress.total);
+    },
+    errorCallback: (err) => {
+      console.log("ERROR UPLOADING FILE", err);
+      setShowUploadingText(false);
+    },
+    completeCallback: (event) => {
+      setShowUploadingText(false);
+      Storage.get(event.key!)
+        .then((value) => {
+          setCaptureUrl(value);
+        })
+        .catch((err) => console.log("ERROR", err));
+    },
+  }).resume();
+}
+
+function setSubmitting(itIs: boolean) {
+  if (itIs) {
+    submitButtonEl.disabled = true;
+    submitButtonEl.innerHTML = "Enviando...";
+  } else {
+    submitButtonEl.disabled = false;
+    submitButtonEl.innerHTML = "Enviar";
+  }
+}
+
+function handleFormSubmit(e: SubmitEvent) {
+  e.preventDefault();
+  if (!formIsValid()) return;
+
+  const input = getFormData();
+  if (!input) return;
+
+  setSubmitting(true);
   API.post(
       "cmapi", 
       "/send-mail", 
       { 
-        body: sendMailInput, 
+        body: input, 
         headers: {
           "Authorization": `Basic ${import.meta.env.VITE_API_TOKEN}`
         },
       }
     )
       .then((response) => console.log("RESPONSE", response))
-      .catch((err) => console.log("ERROR", err));
+      .catch((err) => console.log("ERROR", err))
+      .finally(() => setSubmitting(false));
 }
 
-function setShowUploadingText(show: boolean) {
+function setShowUploadingText(show: boolean, perc?: number) {
+  if (perc !== null && perc !== undefined) {
+    uploadingTextEl.innerHTML = `Subiendo... ${perc}%`
+  } else {
+    uploadingTextEl.innerHTML = "Subiendo..."
+  }
   if (show) return uploadingTextEl.classList.add("shown");
   return uploadingTextEl.classList.remove("shown");
-}
-
-function setUploadingTextPerc(perc: number) {
-  uploadingTextEl.innerHTML = `Subiendo... ${perc}%`
 }
