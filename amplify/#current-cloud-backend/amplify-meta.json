@@ -31,7 +31,7 @@
         "RootUrl": "https://ows42w73v3.execute-api.us-east-1.amazonaws.com/dev",
         "ApiId": "ows42w73v3"
       },
-      "lastPushTimeStamp": "2023-04-29T19:21:05.518Z",
+      "lastPushTimeStamp": "2023-04-30T14:09:09.413Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-condomail-dev-174407-deployment/amplify-cfn-templates/api/cmapi-cloudformation-template.json",
         "logicalId": "apicmapi"
@@ -73,12 +73,12 @@
         "IdentityPoolName": "condomail6489056d_identitypool_6489056d__dev",
         "UserPoolName": "condomail6489056d_userpool_6489056d"
       },
-      "lastPushTimeStamp": "2023-04-29T19:21:05.573Z",
+      "lastPushTimeStamp": "2023-04-30T14:09:09.472Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-condomail-dev-174407-deployment/amplify-cfn-templates/auth/condomail6489056d-cloudformation-template.json",
         "logicalId": "authcondomail6489056d"
       },
-      "lastPushDirHash": "tSqf7EZgN/NcpODXisTcSYcxApo="
+      "lastPushDirHash": "/FMKXzTZlFUQap/zTRBlm4C7g2c="
     }
   },
   "function": {
@@ -93,7 +93,7 @@
         "Name": "sendMail-dev",
         "LambdaExecutionRole": "condomailLambdaRolea5261e06-dev"
       },
-      "lastPushTimeStamp": "2023-04-29T19:21:05.522Z",
+      "lastPushTimeStamp": "2023-04-30T14:09:09.417Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-condomail-dev-174407-deployment/amplify-cfn-templates/function/sendMail-cloudformation-template.json",
         "logicalId": "functionsendMail"
@@ -113,12 +113,11 @@
         "BucketName": "captures174407-dev",
         "Region": "us-east-1"
       },
-      "lastPushTimeStamp": "2023-04-29T19:21:05.573Z",
+      "lastPushTimeStamp": "2023-04-30T14:09:09.420Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-condomail-dev-174407-deployment/amplify-cfn-templates/storage/cloudformation-template.json",
         "logicalId": "storagecmstorage"
-      },
-      "lastPushDirHash": "vLnhXL3Ty1i/l/aG2Rllw2qz31k="
+      }
     }
   }
 }
