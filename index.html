@@ -8,40 +8,14 @@
     <title>Vite + TS</title>
   </head>
   <body>
-    <div class="container">
-      <div class="row">
-        <form>
-          <div class="mb-3">
-            <label for="input-amount" class="form-label">Monto USD</label>
-            <input step="0.01" name="amount" type="number" class="form-control" id="input-amount" placeholder="Monto USD">
-          </div>
-          <div class="mb-3">
-            <label for="input-rate" class="form-label">Tasa Bs</label>
-            <input step="0.01" name="rate" type="number" class="form-control" id="input-rate" placeholder="Tasa Bs">
-          </div>
-          <div class="mb-3">
-            <label for="input-months" class="form-label">Meses</label>
-            <input name="months" type="text" class="form-control" id="input-months" placeholder="Marzo Abril Mayo">
-          </div>
-          <div class="mb-3">
-            <label for="input-capture" class="form-label">Captura</label>
-            <input name="file" type="file" class="form-control" id="input-capture">
-            <p class="uploading-capture-text"></p>
-            <input id="capture-url-input" type="text" name="captureUrl" style="display: none;">
-          </div>
-          <button disabled type="submit" class="btn btn-primary">
-            Enviar
-          </button>
-        </form>
-      </div>
-    </div>
+    home
 
+    <a href="/form/index.html">Form</a>
 
     <script>
       if (global === undefined) {
         var global = window;
       }
     </script>
-    <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
