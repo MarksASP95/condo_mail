@@ -1,5 +1,5 @@
 export interface SendMailInput {
-  months: string[];
+  period: string[];
   amountUSD: number;
   rateBs: number;
   captureUrl: string;

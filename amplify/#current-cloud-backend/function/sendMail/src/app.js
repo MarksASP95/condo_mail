@@ -83,7 +83,7 @@ app.post('/send-mail', async function(req, res) {
   const event = req.apiGateway.event;
 
   console.log("USER", req.user);
-  const { months, amountUSD, rateBs, captureUrl } = req.body;
+  const { period, amountUSD, rateBs, captureUrl } = req.body;
 
   const { TARGET_EMAIL, SENDER_EMAIL, VERIFY_JWT_USER_ID_POOL, VERIFY_JWT_CLIENT_ID } = process.env;
 
@@ -100,7 +100,7 @@ app.post('/send-mail', async function(req, res) {
     const payload = await verifier.verify(token);
     console.log("Token is valid. Payload:", payload);
 
-    if (payload.email !== SENDER_EMAIL) {
+    if (!payload["cognito:groups"].includes("allowed_users")) {
       return res.status(403).send({ sent:false, body: req.body, message: "Email unauthorized" });
     }
   } catch(err) {
@@ -134,14 +134,47 @@ app.post('/send-mail', async function(req, res) {
   //   });
   // }
 
+  const USDFormatter = new Intl.NumberFormat('fr-FR', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+
+  const BsFormatter = new Intl.NumberFormat('fr-FR', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 8
+  });
+
   getTransport()
     .sendMail({
-      subject: "Test Condo Mail",
+      subject: `Pago condominio 6A - ${period}`,
       from: `Marco <${SENDER_EMAIL}>`,
       to: TARGET_EMAIL,
       html: dedent(
-        `Monto: ${amountUSD}
-        Tasa: ${rateBs}`
+        `
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <b>Monto:</b>
+              </td>
+              <td>
+                $${USDFormatter.format(amountUSD)}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <b>Tasa:</b>
+              </td>
+              <td>
+                Bs ${BsFormatter.format(rateBs)}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <br />
+        <img src="${captureUrl}" style="width: 300px;" />
+        `
       )
     })
       .then(() => res.json({ sent: true, body: req.body, user: req.user }))

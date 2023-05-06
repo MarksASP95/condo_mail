@@ -5,3 +5,12 @@
 .uploading-capture-text.shown {
   display: block;
 }
+
+#main-container {
+  display: none;
+}
+
+.centered {
+  display: block;
+  margin: 0 auto;
+}
