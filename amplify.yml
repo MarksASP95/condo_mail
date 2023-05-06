@@ -1,0 +1,13 @@
+version: 1
+applications:
+  - frontend:
+      phases:
+        build:
+          commands: ["npm i", "npm run build"]
+      artifacts:
+        baseDirectory: /
+        files:
+          - '**/*'
+      cache:
+        paths: []
+    appRoot: dist
