@@ -2,16 +2,11 @@
   "resourceName": "cmstorage",
   "policyUUID": "66de3736",
   "bucketName": "captures",
-  "storageAccess": "authAndGuest",
-  "guestAccess": [
-    "CREATE_AND_UPDATE",
-    "READ",
-    "DELETE"
-  ],
+  "storageAccess": "auth",
+  "guestAccess": [],
   "authAccess": [
     "CREATE_AND_UPDATE",
-    "READ",
-    "DELETE"
+    "READ"
   ],
   "triggerFunction": "NONE",
   "groupAccess": {}

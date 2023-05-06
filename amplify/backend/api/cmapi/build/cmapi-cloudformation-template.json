@@ -368,7 +368,7 @@
         "Name": "cmapi"
       }
     },
-    "cmapiDefault4XXResponse4abe5e10": {
+    "cmapiDefault4XXResponsebeee8059": {
       "Type": "AWS::ApiGateway::GatewayResponse",
       "Properties": {
         "ResponseType": "DEFAULT_4XX",
@@ -383,7 +383,7 @@
         }
       }
     },
-    "cmapiDefault5XXResponse4abe5e10": {
+    "cmapiDefault5XXResponsebeee8059": {
       "Type": "AWS::ApiGateway::GatewayResponse",
       "Properties": {
         "ResponseType": "DEFAULT_5XX",
@@ -398,7 +398,7 @@
         }
       }
     },
-    "DeploymentAPIGWcmapif3aeaf3c": {
+    "DeploymentAPIGWcmapi323a843b": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -416,8 +416,8 @@
         }
       },
       "DependsOn": [
-        "cmapiDefault4XXResponse4abe5e10",
-        "cmapiDefault5XXResponse4abe5e10"
+        "cmapiDefault4XXResponsebeee8059",
+        "cmapiDefault5XXResponsebeee8059"
       ]
     }
   }

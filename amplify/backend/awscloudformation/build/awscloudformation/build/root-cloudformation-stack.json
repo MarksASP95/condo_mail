@@ -238,7 +238,7 @@
         "TemplateURL": "https://s3.amazonaws.com/amplify-condomail-dev-174407-deployment/amplify-cfn-templates/function/sendMail-cloudformation-template.json",
         "Parameters": {
           "deploymentBucketName": "amplify-condomail-dev-174407-deployment",
-          "s3Key": "amplify-builds/sendMail-34332b3651316d527866-build.zip",
+          "s3Key": "amplify-builds/sendMail-4437664d687774333650-build.zip",
           "env": "dev"
         }
       }
@@ -249,8 +249,8 @@
         "TemplateURL": "https://s3.amazonaws.com/amplify-condomail-dev-174407-deployment/amplify-cfn-templates/storage/cloudformation-template.json",
         "Parameters": {
           "bucketName": "captures",
-          "selectedGuestPermissions": "s3:PutObject,s3:GetObject,s3:ListBucket,s3:DeleteObject",
-          "selectedAuthenticatedPermissions": "s3:PutObject,s3:GetObject,s3:ListBucket,s3:DeleteObject",
+          "selectedGuestPermissions": "",
+          "selectedAuthenticatedPermissions": "s3:PutObject,s3:GetObject,s3:ListBucket",
           "unauthRoleName": {
             "Ref": "UnauthRoleName"
           },
@@ -265,13 +265,13 @@
           "authPolicyName": "s3_amplify_66de3736",
           "unauthPolicyName": "s3_amplify_66de3736",
           "AuthenticatedAllowList": "ALLOW",
-          "GuestAllowList": "ALLOW",
-          "s3PermissionsAuthenticatedPrivate": "s3:PutObject,s3:GetObject,s3:DeleteObject",
-          "s3PermissionsAuthenticatedProtected": "s3:PutObject,s3:GetObject,s3:DeleteObject",
-          "s3PermissionsAuthenticatedPublic": "s3:PutObject,s3:GetObject,s3:DeleteObject",
+          "GuestAllowList": "DISALLOW",
+          "s3PermissionsAuthenticatedPrivate": "s3:PutObject,s3:GetObject",
+          "s3PermissionsAuthenticatedProtected": "s3:PutObject,s3:GetObject",
+          "s3PermissionsAuthenticatedPublic": "s3:PutObject,s3:GetObject",
           "s3PermissionsAuthenticatedUploads": "s3:PutObject",
-          "s3PermissionsGuestPublic": "s3:PutObject,s3:GetObject,s3:DeleteObject",
-          "s3PermissionsGuestUploads": "s3:PutObject",
+          "s3PermissionsGuestPublic": "DISALLOW",
+          "s3PermissionsGuestUploads": "DISALLOW",
           "env": "dev"
         }
       }
@@ -351,7 +351,7 @@
           }
         },
         "Handler": "index.handler",
-        "Runtime": "nodejs16.x",
+        "Runtime": "nodejs14.x",
         "Timeout": 300,
         "Role": {
           "Fn::GetAtt": [

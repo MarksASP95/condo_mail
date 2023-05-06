@@ -1,6 +1,6 @@
 import './style.css'
 import amplifyConfig from "./aws-exports";
-import { Amplify, API, Storage } from "aws-amplify";
+import { Amplify, API, Storage, Auth } from "aws-amplify";
 import { SendMailInput } from './models/mail';
 
 const uploadingTextEl: HTMLParagraphElement = document.querySelector(".uploading-capture-text")!;
@@ -15,6 +15,19 @@ inputCaptureEl.addEventListener("change", handleCaptureInputElementChange);
 form.addEventListener("submit", handleFormSubmit);
 form.addEventListener("input", handleFormInput);
 
+function signOutUser() {
+  Auth.signOut()
+    .then(() => {
+      console.log("SIGNED OUT");
+    });
+}
+
+function signInUser(email: string, password: string) {
+  Auth.signIn(email, password)
+    .then((user) => {
+      console.log("SIGNED IN", user);
+    });
+}
 
 function getFormRawData(): Record<string, any> {
   const fd = new FormData(form);
@@ -100,12 +113,12 @@ function handleCaptureInputElementChange() {
       setShowUploadingText(false);
     },
     completeCallback: (event) => {
-      setShowUploadingText(false);
       Storage.get(event.key!)
         .then((value) => {
           setCaptureUrl(value);
         })
-        .catch((err) => console.log("ERROR", err));
+        .catch((err) => console.log("ERROR", err))
+        .finally(() => setShowUploadingText(false));
     },
   }).resume();
 }
@@ -120,7 +133,7 @@ function setSubmitting(itIs: boolean) {
   }
 }
 
-function handleFormSubmit(e: SubmitEvent) {
+async function handleFormSubmit(e: SubmitEvent) {
   e.preventDefault();
   if (!formIsValid()) return;
 
@@ -128,19 +141,27 @@ function handleFormSubmit(e: SubmitEvent) {
   if (!input) return;
 
   setSubmitting(true);
-  API.post(
-      "cmapi", 
-      "/send-mail", 
-      { 
-        body: input, 
-        headers: {
-          "Authorization": `Basic ${import.meta.env.VITE_API_TOKEN}`
-        },
-      }
-    )
-      .then((response) => console.log("RESPONSE", response))
-      .catch((err) => console.log("ERROR", err))
-      .finally(() => setSubmitting(false));
+
+  try {
+    const session = await Auth.currentSession();
+    const jwtToken = session.getIdToken().getJwtToken();
+    
+    API.post(
+        "cmapi", 
+        "/send-mail", 
+        { 
+          body: input, 
+          headers: {
+            "Authorization": `Bearer ${jwtToken}`
+          },
+        }
+      )
+        .then((response) => console.log("RESPONSE", response))
+        .catch((err) => console.log("ERROR", err))
+        .finally(() => setSubmitting(false));
+  } catch (error) {
+    console.log("Error sending email", error);
+  }
 }
 
 function setShowUploadingText(show: boolean, perc?: number) {

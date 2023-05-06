@@ -31,7 +31,7 @@
         "RootUrl": "https://ows42w73v3.execute-api.us-east-1.amazonaws.com/dev",
         "ApiId": "ows42w73v3"
       },
-      "lastPushTimeStamp": "2023-04-30T14:09:09.413Z",
+      "lastPushTimeStamp": "2023-05-06T15:22:22.862Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-condomail-dev-174407-deployment/amplify-cfn-templates/api/cmapi-cloudformation-template.json",
         "logicalId": "apicmapi"
@@ -73,12 +73,11 @@
         "IdentityPoolName": "condomail6489056d_identitypool_6489056d__dev",
         "UserPoolName": "condomail6489056d_userpool_6489056d"
       },
-      "lastPushTimeStamp": "2023-04-30T14:09:09.472Z",
+      "lastPushTimeStamp": "2023-05-06T15:22:22.866Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-condomail-dev-174407-deployment/amplify-cfn-templates/auth/condomail6489056d-cloudformation-template.json",
         "logicalId": "authcondomail6489056d"
-      },
-      "lastPushDirHash": "/FMKXzTZlFUQap/zTRBlm4C7g2c="
+      }
     }
   },
   "function": {
@@ -93,15 +92,20 @@
         "Name": "sendMail-dev",
         "LambdaExecutionRole": "condomailLambdaRolea5261e06-dev"
       },
-      "lastPushTimeStamp": "2023-04-30T14:09:09.417Z",
+      "lastPushTimeStamp": "2023-05-06T15:22:23.338Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-condomail-dev-174407-deployment/amplify-cfn-templates/function/sendMail-cloudformation-template.json",
         "logicalId": "functionsendMail"
       },
       "s3Bucket": {
         "deploymentBucketName": "amplify-condomail-dev-174407-deployment",
-        "s3Key": "amplify-builds/sendMail-34332b3651316d527866-build.zip"
-      }
+        "s3Key": "amplify-builds/sendMail-4437664d687774333650-build.zip"
+      },
+      "lastBuildTimeStamp": "2023-05-06T15:20:21.568Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2023-05-06T15:20:22.889Z",
+      "distZipFilename": "sendMail-4437664d687774333650-build.zip",
+      "lastPushDirHash": "b5VYwPmbuVo6TclU9me973tk0TQ="
     }
   },
   "storage": {
@@ -113,11 +117,12 @@
         "BucketName": "captures174407-dev",
         "Region": "us-east-1"
       },
-      "lastPushTimeStamp": "2023-04-30T14:09:09.420Z",
+      "lastPushTimeStamp": "2023-05-06T15:22:22.870Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-condomail-dev-174407-deployment/amplify-cfn-templates/storage/cloudformation-template.json",
         "logicalId": "storagecmstorage"
-      }
+      },
+      "lastPushDirHash": "ekUszKF4udbHsgn2IPQBIzuTOqs="
     }
   }
 }
