@@ -1,36 +1,6 @@
 import { defineConfig } from "vite";
 import path, { resolve } from "path";
 
-const htmlPlugin = () => {
-  return {
-    name: 'html-transform',
-    transformIndexHtml(html) {
-      console.log(resolve(__dirname))
-      return html.replace(
-        /<title>(.*?)<\/title>/,
-        `<title>Condo Mail</title>`,
-      )
-    },
-  }
-}
-
-const rewriteSlashToIndexHtml = () => {
-  return {
-    name: 'rewrite-slash-to-index-html',
-    apply: 'serve',
-    enforce: 'post',
-    configureServer(server) {
-      // rewrite / as index.html
-      server.middlewares.use('/form', (req, res, next) => {
-        if (req.url === '/') {
-          req.url = '/index.html'
-        }
-        next()
-      })
-    },
-  }
-}
-
 // https://vitejs.dev/config/
 export default defineConfig({
   // appType: "mpa",
