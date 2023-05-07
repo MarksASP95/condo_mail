@@ -11,6 +11,9 @@ import {
 } from "./domElements";
 import { toggleSpinner } from "./spinner";
 import { toggleMainContainer } from './utils';
+import toastr, { success, error } from "toastr";
+
+toastr.options.positionClass = "toast-top-center";
 
 const uploadingTextEl = getUploadingTextEl();
 const inputCaptureEl = getInputCaptureEl();
@@ -129,6 +132,7 @@ function handleCaptureInputElementChange() {
       setShowUploadingText(true, (progress.loaded * 100) / progress.total);
     },
     errorCallback: (err) => {
+      error("Error al subir archivo");
       console.log("ERROR UPLOADING FILE", err);
       setShowUploadingText(false);
     },
@@ -137,7 +141,10 @@ function handleCaptureInputElementChange() {
         .then((value) => {
           setCaptureUrl(value);
         })
-        .catch((err) => console.log("ERROR", err))
+        .catch((err) => {
+          error("Ha ocurrido un error");
+          console.log("ERROR", err)
+        })
         .finally(() => setShowUploadingText(false));
     },
   }).resume();
@@ -176,11 +183,20 @@ async function handleFormSubmit(e: SubmitEvent) {
           },
         }
       )
-        .then((response) => console.log("RESPONSE", response))
-        .catch((err) => console.log("ERROR", err))
+        .then((response) => {
+          if (response.sent) {
+            success("Email enviado");
+            form.reset();
+          }
+        })
+        .catch((err) => {
+          console.log("ERROR", err)
+          error("Error al enviar correo");
+        })
         .finally(() => setSubmitting(false));
-  } catch (error) {
-    console.log("Error sending email", error);
+  } catch (err) {
+    console.log("Error sending email", err);
+    error("Error al enviar correo");
   }
 }
 

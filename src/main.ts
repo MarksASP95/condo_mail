@@ -3,10 +3,12 @@ import { toggleMainContainer } from "./utils";
 import { getForm, getSubmitButtonEl } from "./domElements";
 import amplifyConfig from "./aws-exports";
 import { Amplify, Auth } from "aws-amplify";
+import toastr, { error } from "toastr";
+
+toastr.options.positionClass = "toast-top-center";
 
 const submitButtonEl = getSubmitButtonEl();
 const form = getForm();
-const badLoginTextEl = document.getElementById("bad-login-text")! as HTMLParagraphElement;
 
 Amplify.configure(amplifyConfig);
 
@@ -25,7 +27,6 @@ function loginInit() {
 async function handleSubmit(e: SubmitEvent) {
   e.preventDefault();
   setSubmitting(true);
-  toggleErrorText(false);
 
   const fd = new FormData(form);
   const fdData: any = {};
@@ -38,9 +39,9 @@ async function handleSubmit(e: SubmitEvent) {
   try {
     await signInUser(email, password);
     redirectToForm();
-  } catch (error) {
-    console.log("An error has ocurred", error);
-    toggleErrorText(true);
+  } catch (err) {
+    error("Email o contraseña incorrectos");
+    console.log("An error has ocurred", err);
   } finally {
     setSubmitting(false);
   }
@@ -48,14 +49,6 @@ async function handleSubmit(e: SubmitEvent) {
 
 function signInUser(email: string, password: string): Promise<any> {
   return Auth.signIn(email, password);
-}
-
-function toggleErrorText(show: boolean) {
-  if (show) {
-    badLoginTextEl.style.display = "initial";
-  } else {
-    badLoginTextEl.style.display = "none";
-  }
 }
 
 function setSubmitting(itIs: boolean) {
