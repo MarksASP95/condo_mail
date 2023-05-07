@@ -1,6 +1,7 @@
 {
   "name": "Condo Mail",
   "short_name": "Condo Mail",
+  "start_url": ".",
   "icons": [
     {
       "src": "assets/android-chrome-192x192.png",

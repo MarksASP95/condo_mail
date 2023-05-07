@@ -6,7 +6,9 @@ import path, { resolve } from "path";
 export default defineConfig({
   // appType: "mpa",
   plugins: [
-    VitePWA({ registerType: 'autoUpdate' })
+    VitePWA({ 
+      registerType: 'autoUpdate',
+    })
   ],
   build: {
     rollupOptions: {
